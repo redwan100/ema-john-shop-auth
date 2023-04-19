@@ -1,9 +1,12 @@
 import { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProviders';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye,faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 
 const Login = () => {
+  const [show, setShow] = useState(false)
 const [error, setError] = useState('')
 
 const navigate = useNavigate()
@@ -17,7 +20,6 @@ const from =location?.state?.from?.pathname || '/'
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(password);
 
     // reset error
     setError("");
@@ -52,14 +54,14 @@ const from =location?.state?.from?.pathname || '/'
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              name='email'
+              name="email"
               id="email"
               type="email"
               placeholder="Email"
               required
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-6 relative">
             <label
               className="block text-gray-700 font-bold mb-2"
               htmlFor="password"
@@ -68,12 +70,36 @@ const from =location?.state?.from?.pathname || '/'
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              name='password'
+              name="password"
               id="password"
-              type="password"
+              type={show ? "text" : "password"}
               placeholder="**********"
               required
             />
+            <FontAwesomeIcon
+              className="absolute right-4 bottom-6 opacity-60 cursor-pointer"
+              icon={faEye}
+            />
+
+            <p onClick={() => setShow(!show)}>
+              {" "}
+              {show ? (
+                <span>
+                  <FontAwesomeIcon
+                    className="absolute right-4 bottom-6 opacity-20 cursor-pointer"
+                    icon={faEye}
+                  />
+                </span>
+              ) : (
+                <span>
+                  {" "}
+                  <FontAwesomeIcon
+                    className="absolute right-4 bottom-6 opacity-20 cursor-pointer"
+                    icon={faEyeSlash}
+                  />
+                </span>
+              )}
+            </p>
           </div>
           <div className="flex items-center justify-between">
             <button
@@ -91,7 +117,9 @@ const from =location?.state?.from?.pathname || '/'
               </span>
             </small>
           </div>
-          <small className='text-rose-500 text-center block mt-2'>{error && error}</small>
+          <small className="text-rose-500 text-center block mt-2">
+            {error && error}
+          </small>
         </form>
       </div>
     </div>
