@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import Cart from '../cart/Cart'
-import { Link, useLoaderData } from 'react-router-dom'
-import ReviewItem from '../review/ReviewItem';
-import { deleteShoppingCart, removeFromDb } from '../../utilities/fakedb';
+import React, { useState } from "react";
+import Cart from "../cart/Cart";
+import { Link, useLoaderData } from "react-router-dom";
+import ReviewItem from "../review/ReviewItem";
+import { deleteShoppingCart, removeFromDb } from "../../utilities/fakedb";
 
 const Orders = () => {
   const savedCart = useLoaderData();
-  const [cart, setCart] = useState(savedCart)
+  const [cart, setCart] = useState(savedCart);
 
-  const handleRemoveFromCart = (id) =>{
-    const updateItem = cart.filter((product)=>product.id !== id);
-    setCart(updateItem)
-    removeFromDb(id)
-  }
+  const handleRemoveFromCart = (id) => {
+    const updateItem = cart.filter((product) => product._id !== id);
+    setCart(updateItem);
+    removeFromDb(id);
+  };
 
   const handleClearCart = () => {
     setCart([]);
-    deleteShoppingCart()
+    deleteShoppingCart();
   };
 
   return (
@@ -24,7 +24,7 @@ const Orders = () => {
       <div className="py-3">
         {cart.map((product) => (
           <ReviewItem
-            key={product.id}
+            key={product._id}
             {...product}
             handleRemoveFromCart={handleRemoveFromCart}
           />
@@ -42,6 +42,6 @@ const Orders = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Orders
+export default Orders;

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ReviewItem = ({
-  id,
+  _id,
   img,
   price,
   name,
@@ -29,7 +29,7 @@ const ReviewItem = ({
 
       <button
         className="w-10 h-10 bg-rose-100 rounded-full text-sm"
-        onClick={() => handleRemoveFromCart(id)}
+        onClick={() => handleRemoveFromCart(_id)}
       >
         ❌
       </button>
